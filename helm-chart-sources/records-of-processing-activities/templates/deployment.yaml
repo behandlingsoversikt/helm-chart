@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    records.service: records-of-processing-activities
+  name: records-of-processing-activities
+  namespace: {{ required "Missing value NAMESPACE" .Values.NAMESPACE }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      records.service: records-of-processing-activities
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        records.service: records-of-processing-activities
+    spec:
+      containers:
+      - env:
+        - name: OIDC_ISSUER
+          valueFrom:
+            secretKeyRef:
+              name: sso-{{ required "Missing value NAMESPACE" .Values.NAMESPACE }}
+              key: SSO_OIDC_ISSUER
+        - name: OIDC_JWKS
+          valueFrom:
+            secretKeyRef:
+              name: sso-{{ required "Missing value NAMESPACE" .Values.NAMESPACE }}
+              key: SSO_OIDC_JWKS
+        - name: MONGO_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongo-{{ required "Missing value NAMESPACE" .Values.NAMESPACE }}
+              key: MONGO_USERNAME
+        - name: MONGO_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongo-{{ required "Missing value NAMESPACE" .Values.NAMESPACE }}
+              key: MONGO_PASSWORD
+        - name: MONGO_HOST
+          valueFrom:
+            secretKeyRef:
+              name: mongo-{{ required "Missing value NAMESPACE" .Values.NAMESPACE }}
+              key: MONGODB_HOST
+        name: records-of-processing-activities
+        image: {{ required "Missing value DOCKER_IMAGE_NAME" .Values.DOCKER_IMAGE_NAME }}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            memory: {{ required "Missing value RECORDS_OF_PROCESSING_ACTIVITIES_MEMORY" .Values.RECORDS_OF_PROCESSING_ACTIVITIES_MEMORY | quote }}
+        livenessProbe: 
+          httpGet:
+            path: /ping
+            port: 8080
+          initialDelaySeconds: 20
+          periodSeconds: 30
+          successThreshold: 1
+          failureThreshold: 5
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 20
+          periodSeconds: 30
+          successThreshold: 1
+          failureThreshold: 5
+      restartPolicy: Always
+status: {}

@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    records.service: records-of-processing-activities-gui
+  name: records-of-processing-activities-gui
+  namespace: {{ required "Missing value NAMESPACE" .Values.NAMESPACE }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      records.service: records-of-processing-activities-gui
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        records.service: records-of-processing-activities-gui
+    spec:
+      containers:
+      - env:
+        - name: OIDC_ISSUER
+          valueFrom:
+            secretKeyRef:
+              name: commonurl-{{ required "Missing value NAMESPACE" .Values.NAMESPACE }}
+              key: OIDC_ISSUER
+        - name: RECORDS_OF_PROCESSING_ACTIVITIES_URL
+          valueFrom:
+            secretKeyRef:
+              name: commonurl-{{ required "Missing value NAMESPACE" .Values.NAMESPACE }}
+              key: RECORDS_OF_PROCESSING_ACTIVITIES_API_BASE_URI
+        - name: ORGANIZATION_API
+          valueFrom:
+            secretKeyRef:
+              name: commonurl-{{ required "Missing value NAMESPACE" .Values.NAMESPACE }}
+              key: ORGANIZATION_CATALOGUE_HOST
+        - name: FDK_REGISTRATION_BASE_URI
+          valueFrom:
+            secretKeyRef:
+              name: commonurl-{{ required "Missing value NAMESPACE" .Values.NAMESPACE }}
+              key: FDK_REGISTRATION_BASE_URI
+        - name: DATASET_CATALOG_API
+          valueFrom:
+            secretKeyRef:
+              name: commonurl-{{ required "Missing value NAMESPACE" .Values.NAMESPACE }}
+              key: FDK_REGISTRATION_BASE_URI
+        - name: ADMIN_GUI_HOST
+          valueFrom:
+            secretKeyRef:
+              name: commonurl-{{ required "Missing value NAMESPACE" .Values.NAMESPACE }}
+              key: ADMIN_GUI_BASE_URI
+        - name: SEARCH_HOST
+          valueFrom:
+            secretKeyRef:
+              name: commonurl-{{ required "Missing value NAMESPACE" .Values.NAMESPACE }}
+              key: FDK_PORTAL_BASE_URI
+        - name: USE_DEMO_LOGO
+          valueFrom:
+            secretKeyRef:
+              name: common-{{ required "Missing value NAMESPACE" .Values.NAMESPACE }}
+              key: USE_DEMO_LOGO
+              optional: true
+        name: records-of-processing-activities-gui
+        image: {{ required "Missing value DOCKER_IMAGE_NAME" .Values.DOCKER_IMAGE_NAME }}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            memory: {{ required "Missing value RECORDS_OF_PROCESSING_ACTIVITIES_GUI_MEMORY" .Values.RECORDS_OF_PROCESSING_ACTIVITIES_GUI_MEMORY | quote }}
+      restartPolicy: Always
+status: {}

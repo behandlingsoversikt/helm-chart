@@ -1,0 +1,6 @@
+# Default values for records-of-processing-activities-gui.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+##records-of-processing-activities-gui
+RECORDS_OF_PROCESSING_ACTIVITIES_GUI_MEMORY: "10Mi"
