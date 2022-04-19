@@ -3,7 +3,7 @@ entries:
   mongodb:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2022-04-08T16:14:19.535881734+02:00"
+    created: "2022-04-19T15:29:11.044378799+02:00"
     description: Config for MongoDB
     digest: 3a1e5778af4c1c1ac42cc7f5a2ef368d0bfcf432cee33a2ee71b4ccfec3011a0
     home: https://github.com/Informasjonsforvaltning/fdk-mongodb-config
@@ -14,7 +14,7 @@ entries:
   nginx-records:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2022-04-08T16:14:19.536065606+02:00"
+    created: "2022-04-19T15:29:11.045195935+02:00"
     description: nginx for records-of-processing-activities
     digest: dd8219be9c86e7af09886ef0faa8254d0929e16a689c9afafd2e82f6999ac486
     home: https://github.com/behandlingsoversikt/nginx-records
@@ -25,7 +25,7 @@ entries:
   records-of-processing-activities:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2022-04-08T16:14:19.536250008+02:00"
+    created: "2022-04-19T15:29:11.045396654+02:00"
     description: records of processing activities backend.
     digest: 134eebbca77bc35bf1d7c9b38f5452dde40de2dec1a4475116b95f5359c20567
     home: https://github.com/behandlingsoversikt/records-of-processing-activities
@@ -36,12 +36,12 @@ entries:
   records-of-processing-activities-gui:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2022-04-08T16:14:19.536422294+02:00"
+    created: "2022-04-19T15:29:11.045913864+02:00"
     description: records of processing activities frontend.
-    digest: 17f803ec95112ee67c0b97c99d6e03b16fa5103e9848591759cf94e710928542
+    digest: ae69ddc1f8e07f849456baa173540c7b47b7f42c735716bb1c1ae04201c98fd3
     home: https://github.com/behandlingsoversikt/records-of-processing-activities-gui
     name: records-of-processing-activities-gui
     urls:
     - https://behandlingsoversikt.github.io/helm-chart/records-of-processing-activities-gui-0.1.0.tgz
     version: 0.1.0
-generated: "2022-04-08T16:14:19.530583852+02:00"
+generated: "2022-04-19T15:29:11.043599745+02:00"

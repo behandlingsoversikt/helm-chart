@@ -25,7 +25,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: commonurl-{{ required "Missing value NAMESPACE" .Values.NAMESPACE }}
-              key: OIDC_ISSUER
+              key: SSO_OIDC_ISSUER
         - name: RECORDS_OF_PROCESSING_ACTIVITIES_URL
           valueFrom:
             secretKeyRef:
